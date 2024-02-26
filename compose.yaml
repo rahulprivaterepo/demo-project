@@ -1,0 +1,19 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    container_name: "mysqldemo"
+    environment:
+      - 'MYSQL_DATABASE=demodb'
+      - 'MYSQL_ROOT_PASSWORD=password'
+      - 'MYSQL_USER=rootUser'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  springbootdemo:
+    image: demo-project-springboot
+    container_name: "springbootdemo"
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
